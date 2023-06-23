@@ -14,7 +14,7 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModel
 
         public ViewModel()
         {
-            SignInCommand = new SignInCommand();
+            SignInCommand = new Execute_SignInCommand();
         }
     }
 }
