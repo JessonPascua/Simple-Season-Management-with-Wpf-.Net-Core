@@ -1,32 +1,32 @@
-﻿<Window x:Class="Simple_Season_Management_with_Wpf_.Net_Core.MainWindow"
+﻿<Window x:Class="Simple_Season_Management_with_Wpf_.Net_Core.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core"
         mc:Ignorable="d"
-        Title="MainWindow" Height="130" Width="300">
+        Title="LoginWindow" Height="130" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="20.007"/>
             <RowDefinition/>
+            <RowDefinition Height="20.007"/>
+            <RowDefinition Height="14.014"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="75"/>
+            <ColumnDefinition Width="95"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Username:" Grid.ColumnSpan="2" Margin="0,0,224,0"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Username:" Margin="0,0,14,0"/>
         <TextBox Grid.Row="0" Grid.Column="1"/>
 
-        <Label Grid.Column="0" Content="Password:" Grid.ColumnSpan="2" Margin="0,3,224,0" Grid.Row="1"/>
+        <Label Grid.Column="0" Content="Password:" Margin="0,3,14,0" Grid.Row="1"/>
         <PasswordBox Grid.Column="1" Grid.Row="1"/>
 
-        <Button Grid.Row="3" Grid.Column="1" Content="Login"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="Login" Margin="0,20,0,0" Grid.RowSpan="2"/>
     </Grid>
 </Window>
