@@ -1,0 +1,1 @@
+# Simple-Season-Management-with-Wpf-.Net-Core
