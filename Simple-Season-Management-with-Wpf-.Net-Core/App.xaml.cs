@@ -1,4 +1,9 @@
-﻿using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
+using Simple_Season_Management_with_Wpf_.Net_Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,6 +21,8 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
     public partial class App : Application
     {
         private static Mutex? _mutex = null;
+        public static IHost? _host { get; set; }
+
         private readonly SessionManager _sessionManager = new();
         public App()
         {
@@ -26,6 +33,18 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
             {
                 Current.Shutdown();
             }
+
+            _host = Host.CreateDefaultBuilder()
+                 .ConfigureAppConfiguration((context, builder) =>
+                 {
+                     builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                 })
+                .ConfigureServices((hostContext, services) =>
+                {
+                    var connectionString = hostContext.Configuration.GetConnectionString("SQLiteConnection");
+                    services.AddDbContext<UserDbContext>(options => options.UseSqlite(connectionString));
+                })
+                .Build();
         }
 
         protected override void OnStartup(StartupEventArgs e)
