@@ -18,7 +18,7 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Models
         {
         }
 
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Users>? Users { get; set; }
     }
 
 }

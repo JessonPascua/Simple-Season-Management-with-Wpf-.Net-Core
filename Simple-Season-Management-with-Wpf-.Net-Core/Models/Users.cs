@@ -9,13 +9,13 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Models
         public int User_id { get; set; }
         [Required]
         [Column(TypeName = "TEXT")]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [Column(TypeName = "TEXT")]
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
 
         [Column(TypeName = "TEXT")]
-        public string PasswordSalt { get; set; }
+        public string? PasswordSalt { get; set; }
 
         [Column(TypeName = "BOOLEAN")]
         public bool? Status { get; set; }

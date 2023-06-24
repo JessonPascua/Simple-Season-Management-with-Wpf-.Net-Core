@@ -11,7 +11,7 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Helpers
     {
         public static IServiceProvider? ServiceProvider { get; set; }
 
-        public static T GetService<T>()
+        public static T GetService<T>() where T : notnull
         {
             return ServiceProvider.GetRequiredService<T>();
         }

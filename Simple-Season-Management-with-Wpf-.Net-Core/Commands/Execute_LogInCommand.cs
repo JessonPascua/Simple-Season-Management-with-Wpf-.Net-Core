@@ -10,6 +10,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+#pragma warning disable CS8604
 
 namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
 {
@@ -70,7 +71,7 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
             {
                 // Convert SecureString password to string
                 var passwordPtr = IntPtr.Zero;
-                string readablePassword = null;
+                string? readablePassword = null;
                 try
                 {
                     passwordPtr = Marshal.SecureStringToGlobalAllocUnicode(password);
