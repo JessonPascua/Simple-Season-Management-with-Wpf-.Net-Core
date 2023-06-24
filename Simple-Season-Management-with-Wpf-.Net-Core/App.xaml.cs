@@ -43,8 +43,11 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
                 {
                     var connectionString = hostContext.Configuration.GetConnectionString("SQLiteConnection");
                     services.AddDbContext<UserDbContext>(options => options.UseSqlite(connectionString));
+                    services.AddTransient<ViewModel.ViewModel>(); // Add this line to register your ViewModel with DI container
                 })
                 .Build();
+
+            ServiceLocator.ServiceProvider = _host.Services;
         }
 
         protected override void OnStartup(StartupEventArgs e)

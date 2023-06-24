@@ -1,4 +1,6 @@
-﻿using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
+using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
+using Simple_Season_Management_with_Wpf_.Net_Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -14,11 +16,13 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
     public class Execute_LogInCommand : CommandBase
     {
         private readonly ViewModel.ViewModel? _viewModel;
+        private readonly UserDbContext _userDbContext;
         private readonly SessionManager _sessionManager = new SessionManager();
 
-        public Execute_LogInCommand(ViewModel.ViewModel viewModel)
+        public Execute_LogInCommand(ViewModel.ViewModel viewModel, UserDbContext userDbContext)
         {
             _viewModel = viewModel;
+            _userDbContext = userDbContext;
         }
         public override void Execute(object? parameter)
         {
@@ -47,34 +51,17 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
 
         private int? ValidateCredentials(string username, SecureString password)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(@"Data Source=Z:\mainline\database\reference\mainline.s3db;Version=3;"))
+            var user = _userDbContext.Users.SingleOrDefault(u => u.UserName == username);
+            if (user != null)
             {
-                conn.Open();
+                byte[] storedHash = Convert.FromBase64String(user.PasswordHash);
+                byte[] storedSalt = Convert.FromBase64String(user.PasswordSalt);
 
-                using (SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM tblUser WHERE Username = @Username", conn))
-                {
-                    cmd.Parameters.AddWithValue("@Username", username);
-
-                    using (SQLiteDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            byte[] storedHash = Convert.FromBase64String(reader["PasswordHash"].ToString());
-                            byte[] storedSalt = Convert.FromBase64String(reader["PasswordSalt"].ToString());
-
-                            if (VerifyPassword(password, storedHash, storedSalt))
-                                return Convert.ToInt32(reader["User_ID"]);
-                            else
-                                return null;
-                        }
-                        else
-                        {
-                            // Username not found
-                            return null;
-                        }
-                    }
-                }
+                if (VerifyPassword(password, storedHash, storedSalt))
+                    return user.User_id;
             }
+            // Username not found or password verification failed
+            return null;
         }
 
         private bool VerifyPassword(SecureString password, byte[] storedHash, byte[] storedSalt)

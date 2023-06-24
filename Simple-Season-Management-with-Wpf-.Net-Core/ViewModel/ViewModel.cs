@@ -1,4 +1,6 @@
 ﻿using Simple_Season_Management_with_Wpf_.Net_Core.Commands;
+using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
+using Simple_Season_Management_with_Wpf_.Net_Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,10 +38,13 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModel
         public ICommand SignInCommand { get; set; }
         public ICommand LogInCommand { get; set; }
         public ICommand LogOutCommand { get; set; }
+
         public ViewModel()
         {
+            var dbContext = ServiceLocator.GetService<UserDbContext>();
+
             SignInCommand = new Execute_OpenSignInCommand();
-            LogInCommand = new Execute_LogInCommand(this);
+            LogInCommand = new Execute_LogInCommand(this, dbContext);
             LogOutCommand = new Execute_LogOutCommand();
         }
     }
