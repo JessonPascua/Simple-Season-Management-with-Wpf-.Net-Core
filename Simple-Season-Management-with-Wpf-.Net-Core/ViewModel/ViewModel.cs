@@ -22,8 +22,8 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModel
             }
         }
 
-        private SecureString? _password;
-        public SecureString? Password
+        private SecureString _password = new();
+        public SecureString Password
         {
             get { return _password; }
             set
@@ -39,7 +39,7 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModel
         public ViewModel()
         {
             SignInCommand = new Execute_OpenSignInCommand();
-            LogInCommand = new Execute_LogInCommand();
+            LogInCommand = new Execute_LogInCommand(this);
         }
     }
 }

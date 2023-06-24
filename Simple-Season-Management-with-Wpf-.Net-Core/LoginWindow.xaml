@@ -38,11 +38,9 @@
 
         <Label Grid.Column="0" Content="Password:" Margin="0,3,14,0" Grid.Row="1"/>
         <PasswordBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="PasswordChanged">
-                    <i:InvokeCommandAction Command="{Binding PasswordChanged}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <local:BindablePasswordBox Password="{Binding Password, Mode=TwoWay}"/>
+            </i:Interaction.Behaviors>
         </PasswordBox>
 
         <Button Grid.Row="2" Grid.Column="1" Content="Sign In" Margin="0,20,0,0" Grid.RowSpan="2" Command="{Binding SignInCommand}" CommandParameter="{Binding}"/>
