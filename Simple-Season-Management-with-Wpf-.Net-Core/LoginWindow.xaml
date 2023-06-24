@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="LoginWindow" Height="160" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -32,10 +33,17 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Username:" Margin="0,0,14,0"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
 
         <Label Grid.Column="0" Content="Password:" Margin="0,3,14,0" Grid.Row="1"/>
-        <PasswordBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <PasswordBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PasswordChanged">
+                    <i:InvokeCommandAction Command="{Binding PasswordChanged}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </PasswordBox>
 
         <Button Grid.Row="2" Grid.Column="1" Content="Sign In" Margin="0,20,0,0" Grid.RowSpan="2" Command="{Binding SignInCommand}" CommandParameter="{Binding}"/>
         <Button Grid.Row="2" Grid.Column="2" Content="Log In" Margin="0,20,0,0" Grid.RowSpan="2" Command="{Binding LogInCommand}" />
