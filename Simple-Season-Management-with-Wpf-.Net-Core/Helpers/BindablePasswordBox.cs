@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 
-namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModel
+namespace Simple_Season_Management_with_Wpf_.Net_Core.Helpers
 {
     public class BindablePasswordBox : Behavior<PasswordBox>
     {

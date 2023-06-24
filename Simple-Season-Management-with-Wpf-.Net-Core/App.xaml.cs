@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -15,7 +16,7 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
     public partial class App : Application
     {
         private static Mutex? _mutex = null;
-
+        private readonly SessionManager _sessionManager = new();
         public App()
         {
             const string appName = "thisApp";
@@ -25,15 +26,27 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
             {
                 Current.Shutdown();
             }
-
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            var startup = new LoginWindow();
-            startup.Show();
+            int? userId = _sessionManager.GetCurrentUserId();
+
+            if (userId.HasValue)
+            {
+                MessageBox.Show($"User is logged in with id: {userId.Value}");
+                var startup = new HomeWindow();
+                startup.Show();
+            }
+            else
+            {
+                var startup = new LoginWindow();
+                startup.Show();
+                MessageBox.Show("No valid session found.");
+            }
+
         }
 
         protected override  void OnExit(ExitEventArgs e)

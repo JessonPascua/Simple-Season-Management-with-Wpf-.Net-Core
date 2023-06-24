@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.ViewModel"
+        xmlns:h="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.Helpers"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="LoginWindow" Height="160" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
@@ -39,7 +40,7 @@
         <Label Grid.Column="0" Content="Password:" Margin="0,3,14,0" Grid.Row="1"/>
         <PasswordBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
             <i:Interaction.Behaviors>
-                <local:BindablePasswordBox Password="{Binding Password, Mode=TwoWay}"/>
+                <h:BindablePasswordBox Password="{Binding Password, Mode=TwoWay}"/>
             </i:Interaction.Behaviors>
         </PasswordBox>
 
