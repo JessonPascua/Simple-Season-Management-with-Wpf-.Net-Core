@@ -19,7 +19,6 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
         public App()
         {
             const string appName = "thisApp";
-
             _mutex = new Mutex(true, appName, out bool createdNew);
 
             if (!createdNew)
@@ -33,7 +32,7 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
         {
             base.OnStartup(e);
 
-            var startup = new SignInWindow();
+            var startup = new LoginWindow();
             startup.Show();
         }
 

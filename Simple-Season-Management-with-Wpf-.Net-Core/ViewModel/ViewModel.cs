@@ -11,10 +11,12 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModel
     public class ViewModel : ViewModelBase
     {
         public ICommand SignInCommand { get; set; }
+        public ICommand LogInCommand { get; set; }
 
         public ViewModel()
         {
-            SignInCommand = new Execute_SignInCommand();
+            SignInCommand = new Execute_OpenSignInCommand();
+            LogInCommand = new Execute_LogInCommand();
         }
     }
 }

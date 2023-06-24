@@ -3,10 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core"
+        xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.ViewModel"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="130" Width="300">
-    <Grid>
+        Title="LoginWindow" Height="160" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <local:ViewModel x:Key="viewModel"/>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="2 5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource viewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
@@ -17,16 +26,18 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="95"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Username:" Margin="0,0,14,0"/>
-        <TextBox Grid.Row="0" Grid.Column="1"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
 
         <Label Grid.Column="0" Content="Password:" Margin="0,3,14,0" Grid.Row="1"/>
-        <PasswordBox Grid.Column="1" Grid.Row="1"/>
+        <PasswordBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
 
-        <Button Grid.Row="2" Grid.Column="1" Content="Login" Margin="0,20,0,0" Grid.RowSpan="2"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="Sign In" Margin="0,20,0,0" Grid.RowSpan="2" Command="{Binding SignInCommand}" CommandParameter="{Binding}"/>
+        <Button Grid.Row="2" Grid.Column="2" Content="Log In" Margin="0,20,0,0" Grid.RowSpan="2" Command="{Binding LogInCommand}" />
     </Grid>
 </Window>
