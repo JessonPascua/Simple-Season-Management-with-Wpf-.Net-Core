@@ -1,17 +1,18 @@
-﻿<Window x:Class="Simple_Season_Management_with_Wpf_.Net_Core.HomeWindow"
+﻿<Window x:Class="Simple_Season_Management_with_Wpf_.Net_Core.Views.HomeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.ViewModel"
+        xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.ViewModels"
         mc:Ignorable="d"
         Title="HomeWindow" Height="75" Width="225" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
+
     <Window.Resources>
-        <local:ViewModel x:Key="viewModel"/>
+        <local:UserViewModel x:Key="userViewModel"/>
     </Window.Resources>
-    
-    <Grid DataContext="{StaticResource viewModel}">
+
+    <Grid DataContext="{StaticResource userViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="40*"/>

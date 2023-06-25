@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModel
+namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

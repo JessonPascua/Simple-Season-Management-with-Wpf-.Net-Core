@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
 using Simple_Season_Management_with_Wpf_.Net_Core.Models;
+using Simple_Season_Management_with_Wpf_.Net_Core.ViewModels;
+using Simple_Season_Management_with_Wpf_.Net_Core.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -43,7 +45,7 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
                 {
                     var connectionString = hostContext.Configuration.GetConnectionString("SQLiteConnection");
                     services.AddDbContext<UserDbContext>(options => options.UseSqlite(connectionString));
-                    services.AddTransient<ViewModel.ViewModel>(); // Add this line to register your ViewModel with DI container
+                    services.AddTransient<UserViewModel>(); // Add this line to register your ViewModels with DI container
                 })
                 .Build();
 

@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.ViewModel"
+        xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.ViewModels"
         xmlns:h="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.Helpers"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="LoginWindow" Height="160" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
-        <local:ViewModel x:Key="viewModel"/>
+        <local:UserViewModel x:Key="viewModel"/>
 
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="2 5"/>

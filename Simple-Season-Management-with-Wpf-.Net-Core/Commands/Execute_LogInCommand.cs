@@ -1,14 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
+﻿using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
 using Simple_Season_Management_with_Wpf_.Net_Core.Models;
+using Simple_Season_Management_with_Wpf_.Net_Core.ViewModels;
+using Simple_Season_Management_with_Wpf_.Net_Core.Views;
 using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 #pragma warning disable CS8604
 
@@ -16,11 +13,11 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
 {
     public class Execute_LogInCommand : CommandBase
     {
-        private readonly ViewModel.ViewModel? _viewModel;
+        private readonly UserViewModel? _viewModel;
         private readonly UserDbContext _userDbContext;
         private readonly SessionManager _sessionManager = new SessionManager();
 
-        public Execute_LogInCommand(ViewModel.ViewModel viewModel, UserDbContext userDbContext)
+        public Execute_LogInCommand(UserViewModel viewModel, UserDbContext userDbContext)
         {
             _viewModel = viewModel;
             _userDbContext = userDbContext;
