@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.ViewModels"
+        xmlns:h="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.Helpers"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="SignInWindow" Height="175" Width="300"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -27,13 +29,22 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Username:" Margin="0,0,14,0"/>
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtUsername"/>
+        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="0" Grid.Column="1"/>
 
         <Label Grid.Column="0" Content="Password:" Margin="0,3,14,0" Grid.Row="1"/>
-        <PasswordBox Grid.Column="1" Grid.Row="1" x:Name="pbPassword"/>
+        <PasswordBox Grid.Column="1" Grid.Row="1">
+            <i:Interaction.Behaviors>
+                <h:BindablePasswordBox Password="{Binding Password, Mode=TwoWay}"/>
+            </i:Interaction.Behaviors>
+        </PasswordBox>
 
         <Label Grid.Column="0" Content="Confirm Pass:" Margin="0,3,14,0" Grid.Row="2"/>
-        <PasswordBox Grid.Column="1" Grid.Row="2" x:Name="pbConfirmPassword"/>
+        <PasswordBox Grid.Column="1" Grid.Row="2">
+            <i:Interaction.Behaviors>
+                <h:BindablePasswordBox Password="{Binding PasswordConfirmation, Mode=TwoWay}"/>
+            </i:Interaction.Behaviors>
+        </PasswordBox>
 
         <Button Grid.Row="3" Grid.Column="1" Content="Sign In" Command="{Binding SignInCommand}"/>
     </Grid>

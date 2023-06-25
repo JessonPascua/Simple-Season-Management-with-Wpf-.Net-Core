@@ -30,6 +30,18 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModels
             }
         }
 
+        private SecureString _passwordConfirmation = new();
+        public SecureString PasswordConfirmation
+        {
+            get { return _passwordConfirmation; }
+            set
+            {
+                _passwordConfirmation = value;
+                OnPropertyChanged(nameof(PasswordConfirmation));
+            }
+        }
+
+        public ICommand? OpenSignInCommand { get; set; }
         public ICommand? SignInCommand { get; set; }
         public ICommand? LogInCommand { get; set; }
         public ICommand? LogOutCommand { get; set; }
@@ -40,7 +52,9 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModels
             {
                 var dbContext = ServiceLocator.GetService<UserDbContext>();
 
-                SignInCommand = new Execute_OpenSignInCommand();
+                OpenSignInCommand = new Execute_OpenSignInCommand();
+                SignInCommand = new Execute_SignInCommand(this, dbContext);
+
                 LogInCommand = new Execute_LogInCommand(this, dbContext);
                 LogOutCommand = new Execute_LogOutCommand();
             }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Simple_Season_Management_with_Wpf_.Net_Core.Views
 {
@@ -10,6 +11,10 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Views
         public HomeWindow()
         {
             InitializeComponent();
+            this.Closed += (a, b) =>
+            {
+                Environment.Exit(0);
+            };
         }
     }
 }

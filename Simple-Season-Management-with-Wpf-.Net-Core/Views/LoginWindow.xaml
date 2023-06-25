@@ -44,7 +44,7 @@
             </i:Interaction.Behaviors>
         </PasswordBox>
 
-        <Button Grid.Row="2" Grid.Column="1" Content="Sign In" Margin="0,20,0,0" Grid.RowSpan="2" Command="{Binding SignInCommand}" CommandParameter="{Binding}"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="Sign In" Margin="0,20,0,0" Grid.RowSpan="2" Command="{Binding OpenSignInCommand}"/>
         <Button Grid.Row="2" Grid.Column="2" Content="Log In" Margin="0,20,0,0" Grid.RowSpan="2" Command="{Binding LogInCommand}" />
     </Grid>
 </Window>

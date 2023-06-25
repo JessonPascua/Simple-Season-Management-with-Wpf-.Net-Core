@@ -35,7 +35,7 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
 
         private static void ConfigureHost()
         {
-            _host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+            _host = Host.CreateDefaultBuilder()
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
