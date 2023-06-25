@@ -15,11 +15,11 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
 {
     public class Execute_SignInCommand : CommandBase
     {
-        private readonly UserViewModel? _viewModel;
+        private readonly SignInViewModel? _viewModel;
         private readonly UserDbContext _userDbContext;
         private readonly SessionManager _sessionManager = new SessionManager();
 
-        public Execute_SignInCommand(UserViewModel viewModel, UserDbContext userDbContext)
+        public Execute_SignInCommand(SignInViewModel viewModel, UserDbContext userDbContext)
         {
             _viewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
             _userDbContext = userDbContext ?? throw new ArgumentNullException(nameof(userDbContext));
@@ -27,36 +27,46 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
 
         public override void Execute(object? parameter)
         {
-            if (!string.IsNullOrEmpty(_viewModel?.Username) && _viewModel.Password?.Length > 0)
+            try
             {
-                if (SecureStringHelper.CompareSecureStrings(_viewModel.Password, _viewModel.PasswordConfirmation))
+                if (!string.IsNullOrEmpty(_viewModel?.Username) && _viewModel.Password?.Length > 0)
                 {
-                    string username = NormalizeUsername(_viewModel.Username);
-                    SecureString password = _viewModel.Password;
-
-                    int? userId = ValidateCredentials(username, password);
-                    if (!userId.HasValue)
+                    if (SecureStringHelper.CompareSecureStrings(_viewModel.Password, _viewModel.PasswordConfirmation))
                     {
-                        SignUp(username, password);
-                        var currentWindow = System.Windows.Application.Current.MainWindow;
-                        currentWindow.Hide();
+                        string username = NormalizeUsername(_viewModel.Username);
+                        SecureString password = _viewModel.Password;
 
-                        var HomeWindow = new HomeWindow();
-                        HomeWindow.Show();
+                        int? userId = ValidateCredentials(username, password);
+                        if (!userId.HasValue)
+                        {
+                            SignUp(username, password);
+                            var currentWindow = System.Windows.Application.Current.MainWindow;
+                            currentWindow.Hide();
+
+                            var HomeWindow = new HomeWindow();
+                            HomeWindow.Show();
+                        }
+                        else
+                        {
+                            throw new Exception("Username already.");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Username already.", "Season-Managemnent", MessageBoxButton.OK, MessageBoxImage.Stop);
+                        throw new Exception("Password not match.");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Password not match.", "Season-Managemnent", MessageBoxButton.OK, MessageBoxImage.Stop);
+                    throw new Exception("Invalid input.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid input.", "Season-Managemnent", MessageBoxButton.OK, MessageBoxImage.Stop);
+                if (_viewModel is not null)
+                {
+                    _viewModel.ErrorMessage = ex.Message;
+                }
             }
         }
 

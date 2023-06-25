@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModels
 {
-    public class UserViewModel : ViewModelBase
+    public class SignInViewModel : ViewModelBase
     {
         private string? _username;
         public string? Username
@@ -41,22 +41,28 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModels
             }
         }
 
+        private string? _errorMessage;
+        public string? ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+
         public ICommand? OpenSignInCommand { get; set; }
         public ICommand? SignInCommand { get; set; }
-        public ICommand? LogInCommand { get; set; }
-        public ICommand? LogOutCommand { get; set; }
 
-        public UserViewModel()
+        public SignInViewModel()
         {
             try
             {
                 var dbContext = ServiceLocator.GetService<UserDbContext>();
 
-                OpenSignInCommand = new Execute_OpenSignInCommand();
                 SignInCommand = new Execute_SignInCommand(this, dbContext);
-
-                LogInCommand = new Execute_LogInCommand(this, dbContext);
-                LogOutCommand = new Execute_LogOutCommand();
             }
             catch (System.Exception) { }
         }

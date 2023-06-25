@@ -44,7 +44,8 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
                 {
                     var connectionString = hostContext.Configuration.GetConnectionString("SQLiteConnection");
                     services.AddDbContext<UserDbContext>(options => options.UseSqlite(connectionString));
-                    services.AddTransient<UserViewModel>();
+                    services.AddTransient<LoginViewModel>();
+                    services.AddTransient<SignInViewModel>();
                     services.AddSingleton<SessionManager>();
                 })
                 .Build();

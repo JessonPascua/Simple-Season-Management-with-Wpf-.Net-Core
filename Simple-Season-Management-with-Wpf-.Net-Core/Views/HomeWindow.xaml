@@ -9,7 +9,7 @@
 
 
     <Window.Resources>
-        <local:UserViewModel x:Key="userViewModel"/>
+        <local:LoginViewModel x:Key="userViewModel"/>
     </Window.Resources>
 
     <Grid DataContext="{StaticResource userViewModel}">

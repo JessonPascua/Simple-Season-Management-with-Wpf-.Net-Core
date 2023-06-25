@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Commands\Execute_SignInCommand.cs~RFd379265.TMP" />
     <None Remove="MainWindow.xaml~RF2be6ed0.TMP" />
     <None Remove="ViewModels\UserViewModel.cs~RFc5b3530.TMP" />
   </ItemGroup>

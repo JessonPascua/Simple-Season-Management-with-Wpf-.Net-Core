@@ -7,10 +7,10 @@
         xmlns:h="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.Helpers"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="SignInWindow" Height="175" Width="300"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="SignInWindow" Height="200" Width="300"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
-        <local:UserViewModel x:Key="viewModel"/>
+        <local:SignInViewModel x:Key="viewModel"/>
     </Window.Resources>
 
     <Grid DataContext="{StaticResource viewModel}">
@@ -18,34 +18,42 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="34"/>
-            <RowDefinition Height="10.04"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="29"/>
+            <RowDefinition Height="6.08"/>
+            <RowDefinition Height="39.9882352941176"/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="95"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="85"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Username:" Margin="0,0,14,0"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Username:" Margin="0,0,14,0" Grid.ColumnSpan="2"/>
         <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="0" Grid.Column="1"/>
+                 Grid.Row="0" Grid.Column="2"/>
 
-        <Label Grid.Column="0" Content="Password:" Margin="0,3,14,0" Grid.Row="1"/>
-        <PasswordBox Grid.Column="1" Grid.Row="1">
+        <Label Grid.Column="0" Content="Password:" Margin="0,3,14,0" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <PasswordBox Grid.Column="2" Grid.Row="1">
             <i:Interaction.Behaviors>
                 <h:BindablePasswordBox Password="{Binding Password, Mode=TwoWay}"/>
             </i:Interaction.Behaviors>
         </PasswordBox>
 
-        <Label Grid.Column="0" Content="Confirm Pass:" Margin="0,3,14,0" Grid.Row="2"/>
-        <PasswordBox Grid.Column="1" Grid.Row="2">
+        <Label Grid.Column="0" Content="Confirm Pass:" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,0,10" Grid.RowSpan="2" />
+        <PasswordBox Grid.Column="2" Grid.Row="2" Margin="0,0,0,10" Grid.RowSpan="2" >
             <i:Interaction.Behaviors>
                 <h:BindablePasswordBox Password="{Binding PasswordConfirmation, Mode=TwoWay}"/>
             </i:Interaction.Behaviors>
         </PasswordBox>
 
-        <Button Grid.Row="3" Grid.Column="1" Content="Sign In" Command="{Binding SignInCommand}"/>
+        <Button Grid.Row="4" Grid.Column="2" Content="Sign In" Command="{Binding SignInCommand}" Margin="0,0,0,6" Grid.RowSpan="2" />
+
+        <Label Content="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}"
+               Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Foreground="#FFE04949" HorizontalContentAlignment="Center"/>
     </Grid>
 </Window>

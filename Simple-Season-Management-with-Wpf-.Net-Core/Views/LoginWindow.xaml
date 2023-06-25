@@ -10,7 +10,7 @@
         Title="LoginWindow" Height="160" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
-        <local:UserViewModel x:Key="viewModel"/>
+        <local:LoginViewModel x:Key="viewModel"/>
 
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="2 5"/>
@@ -22,29 +22,35 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition/>
-            <RowDefinition Height="20.007"/>
+            <RowDefinition Height="24.014"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="31.012"/>
             <RowDefinition Height="14.014"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="95"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="85"/>
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Username:" Margin="0,0,14,0"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Username:" Margin="0,0,14,0" Grid.ColumnSpan="2"/>
         <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                 Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"/>
 
-        <Label Grid.Column="0" Content="Password:" Margin="0,3,14,0" Grid.Row="1"/>
-        <PasswordBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+        <Label Grid.Column="0" Content="Password:" Margin="0,3,14,0" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <PasswordBox Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2">
             <i:Interaction.Behaviors>
                 <h:BindablePasswordBox Password="{Binding Password, Mode=TwoWay}"/>
             </i:Interaction.Behaviors>
         </PasswordBox>
 
-        <Button Grid.Row="2" Grid.Column="1" Content="Sign In" Margin="0,20,0,0" Grid.RowSpan="2" Command="{Binding OpenSignInCommand}"/>
-        <Button Grid.Row="2" Grid.Column="2" Content="Log In" Margin="0,20,0,0" Grid.RowSpan="2" Command="{Binding LogInCommand}" />
+        <Button Grid.Row="3" Grid.Column="2" Content="Sign In" Command="{Binding OpenSignInCommand}"/>
+        <Button Grid.Row="3" Grid.Column="3" Content="Log In" Command="{Binding LogInCommand}" />
+
+        <Label Content="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}"
+               Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,4,0,0" Grid.RowSpan="2" Foreground="#FFE04949" HorizontalContentAlignment="Center"/>
     </Grid>
 </Window>
