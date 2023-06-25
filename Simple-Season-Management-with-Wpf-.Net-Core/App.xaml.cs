@@ -6,26 +6,17 @@ using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
 using Simple_Season_Management_with_Wpf_.Net_Core.Models;
 using Simple_Season_Management_with_Wpf_.Net_Core.ViewModels;
 using Simple_Season_Management_with_Wpf_.Net_Core.Views;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Simple_Season_Management_with_Wpf_.Net_Core
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         private static Mutex? _mutex = null;
-        public static IHost? _host { get; set; }
+        public static IHost? _host { get; private set; }
+        private readonly SessionManager? _sessionManager;
 
-        private readonly SessionManager _sessionManager = new();
         public App()
         {
             const string appName = "thisApp";
@@ -36,47 +27,55 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
                 Current.Shutdown();
             }
 
-            _host = Host.CreateDefaultBuilder()
-                 .ConfigureAppConfiguration((context, builder) =>
-                 {
-                     builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-                 })
+            ConfigureHost();
+            _sessionManager = _host?.Services.GetRequiredService<SessionManager>();
+
+            ServiceLocator.ServiceProvider = _host?.Services;
+        }
+
+        private static void ConfigureHost()
+        {
+            _host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                })
                 .ConfigureServices((hostContext, services) =>
                 {
                     var connectionString = hostContext.Configuration.GetConnectionString("SQLiteConnection");
                     services.AddDbContext<UserDbContext>(options => options.UseSqlite(connectionString));
-                    services.AddTransient<UserViewModel>(); // Add this line to register your ViewModels with DI container
+                    services.AddTransient<UserViewModel>();
+                    services.AddSingleton<SessionManager>();
                 })
                 .Build();
-
-            ServiceLocator.ServiceProvider = _host.Services;
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            int? userId = _sessionManager.GetCurrentUserId();
+            Window startup;
+            int? userId = _sessionManager?.GetCurrentUserId();
 
             if (userId.HasValue)
             {
                 MessageBox.Show($"User is logged in with id: {userId.Value}");
-                var startup = new HomeWindow();
-                startup.Show();
+                startup = new HomeWindow();
             }
             else
             {
-                var startup = new LoginWindow();
-                startup.Show();
+                startup = new LoginWindow();
                 MessageBox.Show("No valid session found.");
             }
 
+            startup.Show();
         }
 
-        protected override  void OnExit(ExitEventArgs e)
+        protected override void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);
             _mutex?.ReleaseMutex();
+            _mutex?.Dispose();
         }
     }
 }

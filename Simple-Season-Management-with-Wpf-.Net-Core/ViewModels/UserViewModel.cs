@@ -30,9 +30,9 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModels
             }
         }
 
-        public ICommand SignInCommand { get; set; }
-        public ICommand LogInCommand { get; set; }
-        public ICommand LogOutCommand { get; set; }
+        public ICommand? SignInCommand { get; set; }
+        public ICommand? LogInCommand { get; set; }
+        public ICommand? LogOutCommand { get; set; }
 
         public UserViewModel()
         {
