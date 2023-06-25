@@ -51,7 +51,9 @@
             </i:Interaction.Behaviors>
         </PasswordBox>
 
-        <Button Grid.Row="4" Grid.Column="2" Content="Sign In" Command="{Binding SignInCommand}" Margin="0,0,0,6" Grid.RowSpan="2" />
+        <Button Command="{Binding SignInCommand}"
+                CommandParameter="{Binding}"
+                Grid.Row="4" Grid.Column="2" Content="Sign In"   />
 
         <Label Content="{Binding ErrorMessage, UpdateSourceTrigger=PropertyChanged}"
                Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Foreground="#FFE04949" HorizontalContentAlignment="Center"/>

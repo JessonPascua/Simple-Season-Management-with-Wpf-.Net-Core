@@ -15,7 +15,9 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
             window.Hide();
 
             var signInWindow = new SignInWindow();
-            signInWindow.Show();
+            signInWindow.ShowDialog();
+
+            window.Show();
         }
     }
 }

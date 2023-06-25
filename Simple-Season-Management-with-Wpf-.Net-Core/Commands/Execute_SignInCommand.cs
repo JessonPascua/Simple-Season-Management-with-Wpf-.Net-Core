@@ -40,11 +40,11 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
                         if (!userId.HasValue)
                         {
                             SignUp(username, password);
-                            var currentWindow = System.Windows.Application.Current.MainWindow;
-                            currentWindow.Hide();
-
-                            var HomeWindow = new HomeWindow();
-                            HomeWindow.Show();
+                            var window = parameter as Window;
+                            if (window is not null)
+                            {
+                                window.Close();
+                            }
                         }
                         else
                         {
@@ -131,6 +131,7 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
 
             _userDbContext.Users.Add(users);
             _userDbContext.SaveChanges();
+            _sessionManager.SaveSession(users.User_id);
         }
 
         private void CreatePasswordHash(SecureString password, out byte[] passwordHash, out byte[] passwordSalt)
