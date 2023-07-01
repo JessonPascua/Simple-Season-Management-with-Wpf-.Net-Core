@@ -11,13 +11,13 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
     {
         public override void Execute(object? parameter)
         {
-            var window = System.Windows.Application.Current.MainWindow;
-            window.Hide();
-
             var signInWindow = new SignInWindow();
-            signInWindow.ShowDialog();
 
-            window.Show();
+            var window = System.Windows.Application.Current.MainWindow;
+            window.Close();
+
+            Application.Current.MainWindow = signInWindow;
+            signInWindow.Show();
         }
     }
 }

@@ -27,33 +27,41 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
                 Current.Shutdown();
             }
 
-            ConfigureHost();
-            _sessionManager = _host?.Services.GetRequiredService<SessionManager>();
-
-            ServiceLocator.ServiceProvider = _host?.Services;
-        }
-
-        private static void ConfigureHost()
-        {
             _host = Host.CreateDefaultBuilder()
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-                })
-                .ConfigureServices((hostContext, services) =>
-                {
-                    var connectionString = hostContext.Configuration.GetConnectionString("SQLiteConnection");
-                    services.AddDbContext<UserDbContext>(options => options.UseSqlite(connectionString));
-                    services.AddTransient<LoginViewModel>();
-                    services.AddTransient<SignInViewModel>();
-                    services.AddSingleton<SessionManager>();
-                })
-                .Build();
+              .ConfigureAppConfiguration((hostingContext, builder) =>
+              {
+                  builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+              })
+              .ConfigureServices((hostContext, services) =>
+              {
+                  var connectionString = hostContext.Configuration.GetConnectionString("SQLiteConnection");
+                  services.AddDbContext<UserDbContext>(options => options.UseSqlite(connectionString));
+
+                  services.AddTransient<LoginViewModel>();
+                  services.AddTransient<SignInViewModel>();
+                  services.AddSingleton<SessionManager>();
+                  services.AddSingleton<ViewModelLocator>();
+              })
+              .Build();
+
+            if (_host is not null)
+            {
+                _sessionManager = _host.Services.GetRequiredService<SessionManager>();
+                ServiceLocator.ServiceProvider = _host.Services;
+            }
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            await _host!.StartAsync();
+
+            // Get the ViewModelLocator from the DI container and add it to the resources
+            var viewModelLocator = _host.Services.GetRequiredService<ViewModelLocator>();
+            Resources.Add("ViewModelLocator", viewModelLocator);
+
+            //var applicationServices = _host.Services.GetRequiredService<ApplicationInitializeServices>();
+            //applicationServices.Initialize();
 
             Window startup;
             int? userId = _sessionManager?.GetCurrentUserId();
@@ -72,9 +80,10 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core
             startup.Show();
         }
 
-        protected override void OnExit(ExitEventArgs e)
+        protected override async void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);
+            await _host!.StopAsync();
             _mutex?.ReleaseMutex();
             _mutex?.Dispose();
         }

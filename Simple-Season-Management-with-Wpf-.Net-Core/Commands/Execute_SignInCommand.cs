@@ -40,15 +40,17 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
                         if (!userId.HasValue)
                         {
                             SignUp(username, password);
-                            var window = parameter as Window;
-                            if (window is not null)
-                            {
-                                window.Close();
-                            }
+
+                            var logInInWindow = new HomeWindow();
+                            var window = System.Windows.Application.Current.MainWindow;
+                            window.Close();
+
+                            Application.Current.MainWindow = logInInWindow;
+                            logInInWindow.Show();
                         }
                         else
                         {
-                            throw new Exception("Username already.");
+                            throw new Exception("Username already exist.");
                         }
                     }
                     else

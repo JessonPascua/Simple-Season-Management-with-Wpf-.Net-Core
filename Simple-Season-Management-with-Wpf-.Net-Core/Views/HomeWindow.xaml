@@ -4,15 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simple_Season_Management_with_Wpf_.Net_Core.ViewModels"
-        mc:Ignorable="d"
-        Title="HomeWindow" Height="75" Width="225" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        mc:Ignorable="d"  DataContext="{Binding LoginViewModel, Source={StaticResource ViewModelLocator}}"
+        Title="HomeWindow" Height="75" Width="225" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True">
 
-
-    <Window.Resources>
-        <local:LoginViewModel x:Key="userViewModel"/>
-    </Window.Resources>
-
-    <Grid DataContext="{StaticResource userViewModel}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="40*"/>

@@ -1,6 +1,7 @@
 ﻿using Simple_Season_Management_with_Wpf_.Net_Core.Commands;
 using Simple_Season_Management_with_Wpf_.Net_Core.Helpers;
 using Simple_Season_Management_with_Wpf_.Net_Core.Models;
+using System;
 using System.Security;
 using System.Windows.Input;
 
@@ -46,18 +47,21 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.ViewModels
         public ICommand? LogInCommand { get; set; }
         public ICommand? LogOutCommand { get; set; }
 
-        public LoginViewModel()
+        private readonly SessionManager _sessionManager;
+        private readonly UserDbContext _dbContext;
+        public LoginViewModel(SessionManager sessionManager, UserDbContext dbContext)
         {
-            try
-            {
-                var dbContext = ServiceLocator.GetService<UserDbContext>();
+            _sessionManager = sessionManager ?? throw new ArgumentNullException(nameof(sessionManager));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
-                OpenSignInCommand = new Execute_OpenSignInCommand();
+            //var dbContext = ServiceLocator.GetService<UserDbContext>();
+            //var sessionManager = new SessionManager(); 
 
-                LogInCommand = new Execute_LogInCommand(this, dbContext);
-                LogOutCommand = new Execute_LogOutCommand();
-            }
-            catch (System.Exception) { }
+            OpenSignInCommand = new Execute_OpenSignInCommand();
+
+            LogInCommand = new Execute_LogInCommand(this, dbContext);
+            LogOutCommand = new Execute_LogOutCommand(sessionManager);
         }
+
     }
 }

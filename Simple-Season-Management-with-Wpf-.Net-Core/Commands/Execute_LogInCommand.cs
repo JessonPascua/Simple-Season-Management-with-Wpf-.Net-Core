@@ -34,6 +34,9 @@ namespace Simple_Season_Management_with_Wpf_.Net_Core.Commands
                     int? userId = ValidateCredentials(username, password);
                     if (userId.HasValue)
                     {
+                        var window = System.Windows.Application.Current.MainWindow;
+                        window.Hide();
+
                         _sessionManager.SaveSession(userId.Value);
                         var startup = new HomeWindow();
                         startup.Show();
